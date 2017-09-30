@@ -14,6 +14,9 @@ public class User {
   private String login;
   private String password;
 
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
+
   @ManyToOne
   private Town town;
 
@@ -50,5 +53,13 @@ public class User {
 
   public Town getTown() {
     return town;
+  }
+
+  public Gender getGender() {
+    return gender;
+  }
+
+  public void setGender(Gender gender) {
+    this.gender = gender;
   }
 }

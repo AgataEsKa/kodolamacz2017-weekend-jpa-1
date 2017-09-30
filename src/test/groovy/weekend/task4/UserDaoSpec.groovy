@@ -30,6 +30,7 @@ class UserDaoSpec extends Specification {
     given:
     def town = new Town("Warszawa", 100)
     def user = new User("marcin", "tajne", town)
+    user.setGender(Gender.MALE)
 
     and:
     entityManager.getTransaction().begin()
@@ -39,7 +40,7 @@ class UserDaoSpec extends Specification {
 
     when:
     def actualUsers = userDao
-        .getUsersFromTown(townName)
+        .getUsersFromTownJpql(townName)
         .collect({u -> u.getLogin()})
 
     then:

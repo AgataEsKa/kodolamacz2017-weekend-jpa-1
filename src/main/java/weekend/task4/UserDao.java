@@ -1,9 +1,12 @@
 package weekend.task4;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class UserDao {
+
   private final EntityManager entityManager;
 
   public UserDao(EntityManager entityManager) {
