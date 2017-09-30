@@ -5,11 +5,11 @@
   <persistence-unit name="postgres" transaction-type="RESOURCE_LOCAL">
     <class>weekend.Notebook</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://217.182.73.240:5432/marcinkrol"/>
-      <property name="javax.persistence.jdbc.user" value="postgres"/>
-      <property name="javax.persistence.jdbc.password" value="postgres"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/kodolamacz"/>
+      <property name="javax.persistence.jdbc.user" value="bartek"/>
+      <property name="javax.persistence.jdbc.password" value="password123"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="hibernate.hbm2ddl.auto" value="create"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>
 </persistence>

@@ -11,7 +11,7 @@ import javax.persistence.Persistence
 @Unroll
 class UserDaoSpec extends Specification {
 
-  EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("postgres")
+  EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("postgres-test")
   EntityManager entityManager = entityManagerFactory.createEntityManager()
 
   @Subject
@@ -49,5 +49,6 @@ class UserDaoSpec extends Specification {
     townName   | expectedUsers
     "Warszawa" | ["marcin"]
     "Gdańsk"   | []
+    "';drop table users;--" | []
   }
 }
