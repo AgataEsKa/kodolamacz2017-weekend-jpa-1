@@ -14,7 +14,7 @@ public class AdvertDaoTest {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("postgres-test");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-    AdvertDao advertDao = new AdvertDao(entityManager);
+    AdvertDao advertDao = new JpqlAdvertDao(entityManager);
 
     @Test
     public void shouldSaveAdvertTest(){
@@ -39,6 +39,21 @@ public class AdvertDaoTest {
         // when
 
         // then
+
+    }
+
+    @Test
+    public void shouldFindByCategoryTest(){
+        // given
+        int before = advertDao.findByCategory(Category.CAR).size();
+        advertDao.save(new Advert("","",Category.CAR));
+        advertDao.save(new Advert("","",Category.BICYCLE));
+
+        // when
+        int count = advertDao.findByCategory(Category.CAR).size();
+
+        // then
+        Assert.assertEquals(before + 1, count);
 
     }
 }
