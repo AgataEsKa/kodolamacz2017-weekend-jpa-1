@@ -7,6 +7,8 @@ public class Advert extends AbstractEntity {
 
     private String title;
     private String text;
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int price;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -16,9 +18,14 @@ public class Advert extends AbstractEntity {
     // dlatego musi tutaj być
     public Advert() {}
 
-    public Advert(String title, String text, Category category) {
+    public Advert(String title, String text, int price) {
+        this(title, text, price, Category.OTHER);
+    }
+
+    public Advert(String title, String text, int price, Category category) {
         this.title = title;
         this.text = text;
+        this.price = price;
         this.category = category;
     }
 
@@ -44,6 +51,14 @@ public class Advert extends AbstractEntity {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override

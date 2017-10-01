@@ -11,4 +11,6 @@ public interface AdvertDao {
     long count();
 
     List<Advert> findByCategory(Category category);
+
+    List<Advert> findByPrice(int low, int high);
 }

@@ -1,6 +1,7 @@
 package weekend.advert;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
 public class JpqlAdvertDao implements AdvertDao {
@@ -31,6 +32,17 @@ public class JpqlAdvertDao implements AdvertDao {
                 .setParameter("category", category)
                 .getResultList();
     }
+
+    @Override
+    public List<Advert> findByPrice(int low, int high) {
+        return entityManager.createQuery(
+                "select a from Advert a where a.price >= ?1 and a.price <= ?2", Advert.class)
+                .setParameter(1, low)
+                .setParameter(2, high)
+                .getResultList();
+//        return Collections.emptyList();
+    }
+
 
     @Override
     public Advert findById(int id){
