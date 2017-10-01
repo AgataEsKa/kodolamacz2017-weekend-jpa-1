@@ -1,6 +1,7 @@
 package weekend.advert;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 abstract class JpqlAbstractDao<T extends AbstractEntity>
         implements AbstractDao<T> {
@@ -32,4 +33,12 @@ abstract class JpqlAbstractDao<T extends AbstractEntity>
         return entityManager.find(tClass, id);
     }
 
+    @Override
+    public List<T> findAll() {
+        // działa, ale jest brzydkie bo jeśli anotacją
+        // zmienimy nazwę encji (@Entity) to ta metoda się wywali :(
+        return entityManager.createQuery(
+                "select t from "+tClass.getName()+" t", tClass)
+                .getResultList();
+    }
 }

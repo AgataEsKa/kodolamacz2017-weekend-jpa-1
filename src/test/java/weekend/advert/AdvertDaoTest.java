@@ -141,4 +141,35 @@ public class AdvertDaoTest {
         assertThat(adverts, hasItem(car));
 
     }
+
+    @Test
+    public void shouldFindByTitleTest(){
+        // given
+        Advert car = new Advert("Sprzedam Toyota Prius",
+                "sprzedam", 100, Category.CAR);
+        advertDao.save(car);
+        advertDao.save(new Advert("Ford Mustang","",175,Category.CAR));
+
+
+        // when
+        List<Advert> adverts = advertDao.findByTitleContains("Toyota");
+
+        // then
+        for (Advert advert : adverts) {
+            assertThat(advert.getTitle(), containsString("Toyota"));
+        }
+        assertThat(adverts, hasSize(greaterThan(0)));
+    }
+
+    @Test
+    public void shouldFindAllTest(){
+        // given
+
+        // when
+        List<Advert> all = advertDao.findAll();
+        // then
+
+        assertThat(all, hasSize(equalTo((int) advertDao.count())));
+
+    }
 }

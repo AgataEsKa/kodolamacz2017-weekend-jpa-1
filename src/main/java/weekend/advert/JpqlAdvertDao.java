@@ -1,5 +1,6 @@
 package weekend.advert;
 
+import javafx.scene.control.Pagination;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -66,9 +67,24 @@ public class JpqlAdvertDao extends JpqlAbstractDao<Advert>
     public List<Advert> findByUserLogin(String login) {
         return entityManager.createQuery(
                 "select a from Advert a " +
-                        "where a.owner.login = :login", Advert.class)
+                        "where a.owner.login = :login ", Advert.class)
                 .setParameter("login", login)
                 .getResultList();
+    }
+
+    @Override
+    public List<Advert> findByTitleContains(String text) {
+        return entityManager.createQuery(
+                "select a from Advert a " +
+                        "where a.title like :text ", Advert.class)
+                .setParameter("text", "%"+text+"%")
+                .getResultList();
+    }
+
+    @Override
+    public List<Advert> findByTitleContains(String text, int page, int pageSize) {
+
+        return null;
     }
 
 }
