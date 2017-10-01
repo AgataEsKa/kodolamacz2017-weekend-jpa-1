@@ -94,4 +94,27 @@ public class AdvertDaoTest {
         assertThat(adverts, hasItem(car));
 
     }
+
+    @Test
+    public void shouldFindByPriceAndCategoryTest(){
+        // given
+        Advert car = new Advert("Toyota", "sprzedam", 100, Category.CAR);
+        advertDao.save(car);
+        advertDao.save(new Advert("","",200,Category.BICYCLE));
+        advertDao.save(new Advert("","",175,Category.CAR));
+        advertDao.save(new Advert("","",75,Category.BICYCLE));
+
+        // when
+        List<Advert> adverts = advertDao.findByPriceAndCategory(50, 150, Category.CAR);
+
+        // then
+        for (Advert advert : adverts) {
+            assertThat(advert.getPrice(), is(greaterThanOrEqualTo(50)));
+            assertThat(advert.getPrice(), is(lessThanOrEqualTo(150)));
+            assertThat(advert.getCategory(), is(equalTo(Category.CAR)));
+        }
+        // sprawdza czy dana lista zawiera konkretny obiekt
+        assertThat(adverts, hasItem(car));
+
+    }
 }
