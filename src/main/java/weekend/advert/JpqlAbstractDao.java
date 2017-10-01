@@ -2,7 +2,7 @@ package weekend.advert;
 
 import javax.persistence.EntityManager;
 
-public abstract class JpqlAbstractDao<T extends AbstractEntity>
+abstract class JpqlAbstractDao<T extends AbstractEntity>
         implements AbstractDao<T> {
 
     protected EntityManager entityManager;

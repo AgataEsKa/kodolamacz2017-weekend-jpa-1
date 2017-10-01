@@ -7,6 +7,7 @@
     <class>weekend.task4.User</class>
     <class>weekend.task4.Town</class>
     <class>weekend.advert.Advert</class>
+    <class>weekend.advert.User</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/test"/>
       <property name="javax.persistence.jdbc.user" value="bartek"/>

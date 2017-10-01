@@ -1,7 +1,9 @@
 package weekend.advert;
 
+import java.util.Optional;
+
 public interface UserDao extends AbstractDao<User> {
 
-    User findByLogin(String login);
+    Optional<User> findByLogin(String login);
 
 }
