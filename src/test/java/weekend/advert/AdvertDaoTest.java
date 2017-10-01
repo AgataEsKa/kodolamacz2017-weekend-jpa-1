@@ -2,11 +2,14 @@ package weekend.advert;
 
 import org.hamcrest.core.IsCollectionContaining;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,17 +18,27 @@ import static org.junit.Assert.assertEquals;
 
 public class AdvertDaoTest {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("postgres-test");
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("postgres-test");
+    static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-    AdvertDao advertDao = new JpqlAdvertDao(entityManager);
+    static User owner = new User("owner","pass");
+    static AdvertDao advertDao = new JpqlAdvertDao(entityManager);
+    static UserDao userDao = new JpqlUserDao(entityManager);
+
+    @BeforeClass
+    public static void init(){
+        userDao.save(owner);
+        Advert advert = new Advert("Sprzedam Astre","Nówka sztuka",5000, Category.CAR);
+        advert.setOwner(owner);
+        advertDao.save(advert);
+    }
 
     @Test
     public void shouldSaveAdvertTest(){
         long before = advertDao.count();
         // given
         Advert advert = new Advert("Sprzedam Opla","Nówka sztuka",5000, Category.CAR);
-
+        advert.setOwner(owner);
         // when
         advertDao.save(advert);
 
@@ -33,6 +46,17 @@ public class AdvertDaoTest {
         long count = advertDao.count();
 
         assertEquals(before + 1, count);
+    }
+
+    @Test
+    public void shouldFindByUserTest(){
+        // given
+
+        // when
+        List<Advert> adverts = advertDao.findByUser(owner);
+        // then
+        assertThat(adverts, hasSize(greaterThanOrEqualTo(1)));
+
     }
 
     @Test

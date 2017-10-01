@@ -11,4 +11,7 @@ public interface AdvertDao extends AbstractDao<Advert> {
     List<Advert> findByPrice(int low, int high);
 
     List<Advert> findByPriceAndCategory(int low, int high, Category category);
+
+    List<Advert> findByUser(User user);
+    List<Advert> findByUserLogin(String login);
 }

@@ -2,9 +2,8 @@ package weekend.advert;
 
 import com.sun.istack.internal.NotNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 // jeśli ustawimy parametr name w anotacji Entity
 // to zmienimy nazwę ENCJI (co pociągnie za sobą zmianę
@@ -26,6 +25,12 @@ public class User extends AbstractEntity {
     @Column(nullable = false)
     private String password;
     private String phone;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    List<Advert> adverts;
+
+    @ManyToMany
+    List<User> friends;
 
     public User() {
         this("","","");
@@ -63,5 +68,31 @@ public class User extends AbstractEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<Advert> getAdverts() {
+        return adverts;
+    }
+
+    public void setAdverts(List<Advert> adverts) {
+        this.adverts = adverts;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", friends=" + friends +
+                "} " + super.toString();
     }
 }

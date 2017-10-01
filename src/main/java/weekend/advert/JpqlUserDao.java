@@ -11,7 +11,6 @@ public class JpqlUserDao extends JpqlAbstractDao<User>
 
     private static final Logger LOG = Logger.getLogger(JpqlUserDao.class);
 
-
     public JpqlUserDao(EntityManager entityManager) {
         super(entityManager, User.class);
         LOG.info("Stworzono DAO");
@@ -19,7 +18,7 @@ public class JpqlUserDao extends JpqlAbstractDao<User>
 
     @Override
     public Optional<User> findByLogin(String login) {
-        LOG.info("Wyszukujemy po loginie="+login);
+        LOG.trace("Wyszukujemy po loginie="+login);
         List<User> list = entityManager.createQuery(
                 "select u from User u where u.login = :login", User.class)
                 .setParameter("login", login)

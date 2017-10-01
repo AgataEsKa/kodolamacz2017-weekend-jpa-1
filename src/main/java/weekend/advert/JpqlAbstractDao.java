@@ -21,6 +21,13 @@ abstract class JpqlAbstractDao<T extends AbstractEntity>
     }
 
     @Override
+    public void delete(T entity) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
+        entityManager.getTransaction().commit();
+    }
+
+    @Override
     public T findById(int id){
         return entityManager.find(tClass, id);
     }

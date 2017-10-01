@@ -45,4 +45,17 @@ public class UserDaoTest {
 
     }
 
+    @Test
+    public void shouldFindTest(){
+        // given
+
+        // when
+        User user = userDao.findById(70);
+        // then
+        System.out.println(user);
+        System.out.println(user.getAdverts());
+//        userDao.delete(user);
+
+    }
+
 }
